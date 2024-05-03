@@ -9,7 +9,7 @@ body {
 }
 
 .panel {
-  background-color: #fff;
+  background-color: black;
   height: 37.5em;
   width: 37.5em;
   position: absolute;
@@ -83,7 +83,7 @@ body {
   position: absolute;
   display: grid;
   place-items: center;
-  background-color: #fff;
+  background-color: rgb(41, 40, 40);
   height: 2em;
   width: 3em;
   font-size: 2.5em;
@@ -91,6 +91,7 @@ body {
   top: 50%;
   left: 50%;
   border-radius: 0.3em;
+  color: white;
 }
 
 .ocultar {
@@ -98,7 +99,7 @@ body {
 }
 
 .container {
-  background-color: dimgray;
+  background-color: black;
   position: absolute;
   top: 0;
   height: 100%;
@@ -110,13 +111,32 @@ body {
 }
 
 .container button {
-  background-color: #fff;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.5),
+    rgba(0, 255, 0, 0.5),
+    rgba(0, 0, 255, 0.5),
+    rgba(255, 255, 0, 0.5)
+  );
+
+  color: #fff;
   font-size: 1.2em;
+  font-weight: bold;
   border: none;
   outline: none;
   padding: 1em 2em;
   border-radius: 0.3em;
   cursor: pointer;
+}
+
+.container button:hover {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.7),
+    rgba(0, 255, 0, 0.7),
+    rgba(0, 0, 255, 0.7),
+    rgba(255, 255, 0, 0.7)
+  );
 }
 
 .container p {
