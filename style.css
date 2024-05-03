@@ -35,6 +35,11 @@ body {
   width: 13.12em;
   position: absolute;
   cursor: pointer;
+  outline: none;
+}
+
+.porcion:focus {
+  outline: none;
 }
 
 .color1 {
