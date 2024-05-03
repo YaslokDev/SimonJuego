@@ -1,5 +1,5 @@
 const valorContador = document.getElementById("contador");
-const porcion = document.querySelectorAll(".porcion");
+const porciones = document.querySelectorAll(".porcion");
 const container = document.querySelector(".container");
 const btnIniciar = document.querySelector("#iniciar");
 const resultado = document.querySelector("#resultado");
@@ -29,102 +29,108 @@ const colores = {
 
 let coloresAleatorios = [];
 let activarGenerarSecuencia = false;
-let contador,
-  contadorClick = 0;
+let contador = 0;
+let contadorClick = 0;
 
-btnIniciar.addEventListener("click", () => {
+btnIniciar.addEventListener("click", iniciarJuego);
+
+porciones.forEach((porcion) => {
+  porcion.addEventListener("click", manejarClick);
+});
+
+async function iniciarJuego() {
   contador = 0;
   contadorClick = 0;
   coloresAleatorios = [];
   activarGenerarSecuencia = false;
   panel.classList.remove("ocultar");
   container.classList.add("ocultar");
-  generarSecuencia();
-});
+  await generarSecuencia();
+}
 
-const generarSecuencia = () => {
-  coloresAleatorios.push(generarValorAleatorio(colores));
+async function generarSecuencia() {
+  coloresAleatorios.push(generarColorAleatorio(colores));
   contador = coloresAleatorios.length;
   activarGenerarSecuencia = true;
-  secuenciaElegida(contador);
-};
+  await mostrarSecuencia(contador);
+}
 
-const generarValorAleatorio = (obj) => {
-  let array = Object.keys(obj);
-  return array[Math.floor(Math.random() * array.length)];
-};
+function generarColorAleatorio(obj) {
+  const colores = Object.keys(obj);
+  return colores[Math.floor(Math.random() * colores.length)];
+}
 
-const secuenciaElegida = async (contador) => {
+async function mostrarSecuencia(contador) {
   valorContador.innerText = contador;
   intercambiarOpacidad(0.5);
-  for (let i of coloresAleatorios) {
-    let colorActual = document.querySelector(`.${i}`);
+  for (let color of coloresAleatorios) {
+    const colorActual = document.querySelector(`.${color}`);
     await retraso(500);
-    colorActual.style.backgroundColor = `${colores[i]["nuevo"]}`;
+    colorActual.style.backgroundColor = `${colores[color]["nuevo"]}`;
     await retraso(600);
-    colorActual.style.backgroundColor = `${colores[i]["actual"]}`;
+    colorActual.style.backgroundColor = `${colores[color]["actual"]}`;
     await retraso(600);
   }
   intercambiarOpacidad(1);
   activarGenerarSecuencia = false;
-};
-
-async function retraso(tiempo) {
-  return await new Promise((resolver) => {
-    setTimeout(resolver, tiempo);
-  });
 }
 
-porcion.forEach((element) => {
-  element.addEventListener("click", async (e) => {
-    if (activarGenerarSecuencia) {
-      return false;
+async function manejarClick(e) {
+  if (activarGenerarSecuencia) {
+    return false;
+  }
+  const colorClickeado = e.target.classList[0];
+  if (colorClickeado === coloresAleatorios[contadorClick]) {
+    e.target.style.backgroundColor = `${colores[colorClickeado]["nuevo"]}`;
+    clickSonido();
+    await retraso(500);
+    e.target.style.backgroundColor = `${colores[colorClickeado]["actual"]}`;
+    contadorClick += 1;
+    if (contadorClick === contador) {
+      contadorClick = 0;
+      await generarSecuencia();
     }
-    if (e.target.classList[0] == coloresAleatorios[contadorClick]) {
-      e.target.style.backgroundColor = `${colores[coloresAleatorios[contadorClick]]["nuevo"]}`;
-      clickSonido();
-      await retraso(500);
-      e.target.style.backgroundColor = `${colores[coloresAleatorios[contadorClick]]["actual"]}`;
-      contadorClick += 1;
-      if (contadorClick == contador) {
-        contadorClick = 0;
-        generarSecuencia();
-      }
-    } else {
-      errorSonido();
-      gameOver();
-    }
-  });
-});
+  } else {
+    errorSonido();
+    await gameOver();
+  }
+}
 
-const gameOver = () => {
+async function gameOver() {
   resultado.innerHTML = `<span> Tu Puntuación: </span>${contador}`;
   resultado.classList.remove("ocultar");
   container.classList.remove("ocultar");
   panel.classList.add("ocultar");
   btnIniciar.innerText = "Jugar otra vez";
   btnIniciar.classList.remove("ocultar");
-};
+  destelloInterfaz();
+}
 
-const clickSonido = () => {
+function clickSonido() {
   sonidoClick.currentTime = 0;
   sonidoClick.play();
-};
+}
 
-const errorSonido = () => {
+function errorSonido() {
   sonidoError.currentTime = 0;
   sonidoError.play();
-};
+}
 
-const intercambiarOpacidad = (opacidad) => {
-  porcion.forEach((element) => {
-    element.style.opacity = opacidad;
+function intercambiarOpacidad(opacidad) {
+  porciones.forEach((porcion) => {
+    porcion.style.opacity = opacidad;
   });
-};
+}
 
-const destelloInterfaz = () => {
+function destelloInterfaz() {
   contenedor.classList.add("destello");
   setTimeout(() => {
     contenedor.classList.remove("destello");
   }, 1000);
-};
+}
+
+async function retraso(tiempo) {
+  return await new Promise((resolver) => {
+    setTimeout(resolver, tiempo);
+  });
+}
