@@ -6,6 +6,7 @@ const resultado = document.querySelector("#resultado");
 const panel = document.querySelector(".panel");
 const sonidoClick = document.getElementById("sonidoClick");
 const sonidoError = document.getElementById("sonidoError");
+const contenedor = document.querySelector(".interfaz");
 
 const colores = {
   color1: {
@@ -55,6 +56,7 @@ const generarValorAleatorio = (obj) => {
 
 const secuenciaElegida = async (contador) => {
   valorContador.innerText = contador;
+  intercambiarOpacidad(0.5);
   for (let i of coloresAleatorios) {
     let colorActual = document.querySelector(`.${i}`);
     await retraso(500);
@@ -63,6 +65,7 @@ const secuenciaElegida = async (contador) => {
     colorActual.style.backgroundColor = `${colores[i]["actual"]}`;
     await retraso(600);
   }
+  intercambiarOpacidad(1);
   activarGenerarSecuencia = false;
 };
 
@@ -111,4 +114,17 @@ const clickSonido = () => {
 const errorSonido = () => {
   sonidoError.currentTime = 0;
   sonidoError.play();
+};
+
+const intercambiarOpacidad = (opacidad) => {
+  porcion.forEach((element) => {
+    element.style.opacity = opacidad;
+  });
+};
+
+const destelloInterfaz = () => {
+  contenedor.classList.add("destello");
+  setTimeout(() => {
+    contenedor.classList.remove("destello");
+  }, 1000);
 };
