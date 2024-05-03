@@ -1,0 +1,140 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: dimgrey;
+}
+
+.panel {
+  background-color: #fff;
+  height: 37.5em;
+  width: 37.5em;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 0.5em;
+}
+
+.interfaz {
+  height: 31.25em;
+  width: 31.25em;
+  background-color: #131212;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.porcion {
+  height: 13.12em;
+  width: 13.12em;
+  position: absolute;
+  cursor: pointer;
+}
+
+.color1 {
+  background-color: rgba(0, 128, 0, 0.5);
+  border-radius: 13em 0 0 0;
+  top: 1.87em;
+  left: 1.87em;
+}
+
+.color2 {
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 0 13em 0 0;
+  top: 1.87em;
+  right: 1.87em;
+}
+
+.color3 {
+  background-color: rgba(0, 0, 255, 0.5);
+  border-radius: 0 0 13em 0;
+  bottom: 1.87em;
+  right: 1.87em;
+}
+
+.color4 {
+  background-color: rgba(255, 255, 0, 0.5);
+  border-radius: 0 0 0 13em;
+  bottom: 1.87em;
+  left: 1.87em;
+}
+
+.interfaz::before {
+  position: absolute;
+  content: "";
+  background-color: #131212;
+  height: 13.75em;
+  width: 13.75em;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+}
+
+#contador {
+  z-index: 1;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  background-color: #fff;
+  height: 2em;
+  width: 3em;
+  font-size: 2.5em;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 0.3em;
+}
+
+.ocultar {
+  display: none;
+}
+
+.container {
+  background-color: dimgray;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container button {
+  background-color: #fff;
+  font-size: 1.2em;
+  border: none;
+  outline: none;
+  padding: 1em 2em;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.container p {
+  font-size: 2em;
+  color: #fff;
+  margin-bottom: 1em;
+}
+
+.container span {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 10px;
+  }
+  .panel {
+    height: 35em;
+    width: 35em;
+  }
+}
