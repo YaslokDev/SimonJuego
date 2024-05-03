@@ -77,7 +77,6 @@ async function retraso(tiempo) {
 
 porcion.forEach((element) => {
   element.addEventListener("click", async (e) => {
-    porcion.blur();
     if (activarGenerarSecuencia) {
       return false;
     }

@@ -31,15 +31,12 @@ body {
 }
 
 .porcion {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
   height: 13.12em;
   width: 13.12em;
   position: absolute;
   cursor: pointer;
-  outline: none;
-}
-
-.porcion:focus {
-  outline: none;
 }
 
 .color1 {
