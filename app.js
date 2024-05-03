@@ -4,6 +4,8 @@ const container = document.querySelector(".container");
 const btnIniciar = document.querySelector("#iniciar");
 const resultado = document.querySelector("#resultado");
 const panel = document.querySelector(".panel");
+const sonidoClick = document.getElementById("sonidoClick");
+const sonidoError = document.getElementById("sonidoError");
 
 const colores = {
   color1: {
@@ -72,12 +74,12 @@ async function retraso(tiempo) {
 
 porcion.forEach((element) => {
   element.addEventListener("click", async (e) => {
-    console.log("CLICK");
     if (activarGenerarSecuencia) {
       return false;
     }
     if (e.target.classList[0] == coloresAleatorios[contadorClick]) {
       e.target.style.backgroundColor = `${colores[coloresAleatorios[contadorClick]]["nuevo"]}`;
+      clickSonido();
       await retraso(500);
       e.target.style.backgroundColor = `${colores[coloresAleatorios[contadorClick]]["actual"]}`;
       contadorClick += 1;
@@ -86,6 +88,7 @@ porcion.forEach((element) => {
         generarSecuencia();
       }
     } else {
+      errorSonido();
       gameOver();
     }
   });
@@ -98,4 +101,14 @@ const gameOver = () => {
   panel.classList.add("ocultar");
   btnIniciar.innerText = "Jugar otra vez";
   btnIniciar.classList.remove("ocultar");
+};
+
+const clickSonido = () => {
+  sonidoClick.currentTime = 0;
+  sonidoClick.play();
+};
+
+const errorSonido = () => {
+  sonidoError.currentTime = 0;
+  sonidoError.play();
 };
